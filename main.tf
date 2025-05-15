@@ -4,7 +4,7 @@ provider "google" {
 }
 
 module "infra" {
-  source = "modulesnfra"
+  source = "./modules/infra"
   infra_config_yaml_file = var.infra_config_yaml_file
   project_id = local.project_id
   action = var.action
@@ -16,7 +16,7 @@ module "infra" {
 
 module "domain" {
   count  = var.manage_dns_zone ? 1 : 0
-  source = "modulesomain"
+  source = "./modules/domain"
   infra_config_yaml_file = var.infra_config_yaml_file
   project_id = local.project_id
   use_gcp_certificate_manager = var.use_gcp_certificate_manager
