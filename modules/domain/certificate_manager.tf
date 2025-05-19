@@ -13,7 +13,7 @@ resource "google_dns_record_set" "default-challenge" {
   type     = "CNAME"
   ttl      = 300
 
-  managed_zone = each.value.certificates.contents[0].dns_managed_zone_name
+  managed_zone = local.dns_managed_zone
 
   rrdatas = [google_certificate_manager_dns_authorization.default[each.key].dns_resource_record[0].data]
   depends_on = [google_dns_managed_zone.default]
