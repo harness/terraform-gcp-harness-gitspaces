@@ -21,5 +21,5 @@ resource "google_dns_record_set" "alb_a_wildcard" {
 }
 
 data "google_dns_managed_zone" "existing" {
-  name = replace(local.domain, ".", "-") # "gitspace-harness-io"
+  name = local.dns_managed_zone
 }
