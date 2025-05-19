@@ -36,4 +36,5 @@ resource "google_certificate_manager_certificate" "default" {
   lifecycle {
     create_before_destroy = true
   }
+  depends_on = [google_dns_managed_zone.default]
 }
