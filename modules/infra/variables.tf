@@ -33,11 +33,11 @@ variable "private_key_path" {
 variable "certificate_path" {
     description = "Path to the SSL certificate file."
     type        = string
-  default = ""
+    default = ""
 }
 
 variable "manage_dns_zone" {
     description = "Manage DNS zone."
     type        = bool
-    default     = false
+    default     = true
 }
