@@ -4,7 +4,7 @@ resource "google_dns_record_set" "alb_a" {
   name         = "${local.region_configs[each.key].certificates.contents[0].domain}."
   type         = "A"
   ttl          = 300
-  managed_zone = data.google_dns_managed_zone.existing  # Global zone reference
+  managed_zone = data.google_dns_managed_zone.existing.name  # Global zone reference
 
   rrdatas = [google_compute_address.alb_ip[each.key].address]
 }
