@@ -21,9 +21,9 @@ Module to create infrastructure in GCP for running Harness Gitspaces – include
 | `managed_domain_zone` | Managed Domain zone | `google_dns_managed_zone.default.dns_name` | DNS name of the zone |
 
 ### Example:
+
 ```hcl
 module "domain" {
-  source                       = "./modules/domain"
   infra_config_yaml_file      = var.infra_config_yaml_file
   project_id                  = local.project_id
   use_gcp_certificate_manager = var.use_gcp_certificate_manager

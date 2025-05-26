@@ -5,7 +5,6 @@ This module is designed to create a managed domain zone in Google Cloud Platform
 | Variable Name                 | Type   | Description                                                                                  | Required | Default / Validation                                               |
 | ----------------------------- | ------ | -------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------ |
 | `infra_config_yaml_file`      | string | The path to the YAML file containing infrastructure configuration.                           | Yes      | —                                                                  |
-| `action`                      | string | The environment action to perform. Options: `create_infrastructure_only`, `deploy_gateway`.  | Yes      | Must be one of: `["create_infrastructure_only", "deploy_gateway"]` |
 | `use_gcp_certificate_manager` | bool   | Use Google Certificate Manager for SSL certificates.                                         | No       | `true`                                                             |
 | `private_key_path`            | string | Path to the private key file for SSL certificate. Required if not using Certificate Manager. | No       | `""`                                                               |
 | `certificate_path`            | string | Path to the SSL certificate file. Required if not using Certificate Manager.                 | No       | `""`                                                               |
@@ -24,6 +23,7 @@ This module is designed to create a managed domain zone in Google Cloud Platform
 
 ### Example:
 ```hcl
+module "infra" {
 infra_config_yaml_file = var.infra_config_yaml_file
 project_id = local.project_id
 action = var.action

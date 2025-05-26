@@ -8,7 +8,7 @@ data "google_compute_image" "latest_image" {
 }
 # Create an instance template
 resource "google_compute_region_instance_template" "default_template" {
-  for_each        = local.gateway_deploy ? local.region_configs : {}
+  for_each        = local.region_configs
   name         = "${local.name}-${local.region_configs[each.key].region_name}-gateway-template-${local.gateway_suffix}"
   machine_type = local.gateway_machine_type
   region       = local.region_configs[each.key].region_name
@@ -89,7 +89,7 @@ resource "google_compute_health_check" "autohealing" {
 }
 
 resource "google_compute_region_instance_group_manager" "gateway" {
-  for_each = local.gateway_deploy ? local.region_configs : {}
+  for_each = local.region_configs
   name     = "${local.name}-${each.value.region_name}-gateway-group-${local.gateway_suffix}"
 
   base_instance_name = "${local.name}-${each.value.region_name}-gateway-${local.gateway_suffix}"
