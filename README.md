@@ -26,7 +26,6 @@ Gateway:
 |-------------------------------|---------|------------------------------------------------------------------------------------------------------|----------|----------------------------------------------------------------------------|
 | `service_account_key_file`    | string  | The path to the service account key file.                                                            | Yes      | —                                                                          |
 | `infra_config_yaml_file`      | string  | The path to the YAML file containing infrastructure configuration.                                   | Yes      | —                                                                          |
-| `action`                      | string  | The environment action to perform. Options: `create_infrastructure_only`, `deploy_gateway`.          | Yes      | Must be one of: `["create_infrastructure_only", "deploy_gateway"]`        |
 | `manage_dns_zone`             | bool    | Whether the DNS zone should be managed by the module.                                                | Yes      | —                                                                          |
 | `use_gcp_certificate_manager` | bool    | Use Google Certificate Manager for SSL certificates.                                                 | No       | `true`                                                                     |
 | `private_key_path`            | string  | Path to the private key file for SSL certificate. Required if not using Certificate Manager.         | No       | `""`                                                                       |
@@ -47,10 +46,8 @@ Gateway:
 ### Example:
 ```hcl
 module "harness_gitspacs_gcp" {
-  source                      = "" # Add the path to the module
   infra_config_yaml_file      = "infra_config.yaml"
   service_account_key_file    = "service-account-key.json"
-  action                      = "deploy_gateway"
   manage_dns_zone             = true
   use_gcp_certificate_manager = true
   certificate_path            = "sample_domain.cert"

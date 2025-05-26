@@ -30,7 +30,7 @@ resource "google_compute_region_backend_service" "nlb_default" {
   timeout_sec           = 10
   load_balancing_scheme = "EXTERNAL"
   dynamic "backend" {
-    for_each = local.gateway_deploy ? [google_compute_region_instance_group_manager.gateway[each.key].instance_group] : []
+    for_each = [google_compute_region_instance_group_manager.gateway[each.key].instance_group]
     content {
       balancing_mode = "CONNECTION"
       group          = backend.value
@@ -112,7 +112,7 @@ resource "google_compute_region_backend_service" "alb_default" {
   load_balancing_scheme = "EXTERNAL_MANAGED"
   port_name             = "http"
   dynamic "backend" {
-    for_each = local.gateway_deploy ? [google_compute_region_instance_group_manager.gateway[each.key].instance_group] : []
+    for_each = [google_compute_region_instance_group_manager.gateway[each.key].instance_group]
     content {
       balancing_mode        = "RATE"
       max_rate_per_instance = 100
@@ -154,7 +154,7 @@ resource "google_compute_region_backend_service" "nlb_gateway_default" {
   load_balancing_scheme = "EXTERNAL"
 
   dynamic "backend" {
-    for_each = local.gateway_deploy ? [google_compute_region_instance_group_manager.gateway[each.key].instance_group] : []
+    for_each = [google_compute_region_instance_group_manager.gateway[each.key].instance_group]
     content {
       balancing_mode = "CONNECTION"
       group          = backend.value

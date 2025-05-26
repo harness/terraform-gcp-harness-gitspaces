@@ -8,16 +8,6 @@ variable "infra_config_yaml_file" {
   type        = string
 }
 
-variable "action" {
-  description = "The environment to deploy to. Options are: create_infrastructure_only, or deploy_gateway."
-  type        = string
-
-  validation {
-    condition     = contains(["create_infrastructure_only", "deploy_gateway"], var.action)
-    error_message = "Invalid value for resources. Must be one of: create_infrastructure_only, deploy_gateway."
-  }
-}
-
 variable "manage_dns_zone" {
   type = bool
 }
