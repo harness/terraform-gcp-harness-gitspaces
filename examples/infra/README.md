@@ -26,9 +26,6 @@ This module is designed to create a managed domain zone in Google Cloud Platform
 module "infra" {
 infra_config_yaml_file = var.infra_config_yaml_file
 project_id = local.project_id
-action = var.action
-use_gcp_certificate_manager = var.use_gcp_certificate_manager
-private_key_path = var.private_key_path
-certificate_path = var.certificate_path
+use_gcp_certificate_manager = true
 }
 ```
