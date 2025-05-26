@@ -92,7 +92,7 @@ resource "google_compute_subnetwork" "subnet" {
       priority      = 800
 
       source_ranges = ["35.235.240.0/20"]
-      target_tags = concat(local.gateway_vm_tags, local.vm_tags_gitspace)
+      target_tags = concat(local.gateway_vm_tags, local.vm_tags_gitspace, ["runner-vm"])
 
       allow = [{
         protocol = "tcp"

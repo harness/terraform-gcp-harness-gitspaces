@@ -29,3 +29,8 @@ variable "certificate_path" {
   type        = string
   default = ""
 }
+
+variable "create_runner_vm" {
+    description = "Create a VM for the runner."
+    type        = bool
+}

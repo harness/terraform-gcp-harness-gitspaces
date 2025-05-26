@@ -31,3 +31,13 @@ variable "manage_dns_zone" {
     type        = bool
     default     = true
 }
+
+variable "runner_vm_region" {
+  description = "Regions for the runner VM."
+  type        = list(string)
+}
+
+variable "create_runner_vm" {
+    description = "Create a VM for the runner."
+    type        = bool
+}

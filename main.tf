@@ -11,6 +11,8 @@ module "infra" {
   manage_dns_zone = var.manage_dns_zone
   private_key_path = var.private_key_path
   certificate_path = var.certificate_path
+  create_runner_vm = var.create_runner_vm
+  runner_vm_region = local.runner_vm_region
   depends_on = [module.domain]
 }
 
