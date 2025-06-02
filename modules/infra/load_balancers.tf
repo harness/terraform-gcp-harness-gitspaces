@@ -139,7 +139,7 @@ resource "google_compute_forwarding_rule" "nlb_gateway_default" {
   name            = "${local.name}-${each.value.region_name}-gateway-nlb-frontend"
   ip_address      = google_compute_address.alb_ip[each.key].address
   ip_protocol     = "TCP"
-  port_range      = 2117
+  port_range      = "2117-2118"
   region          = each.value.region_name
   backend_service = google_compute_region_backend_service.nlb_gateway_default[each.key].id
 }
