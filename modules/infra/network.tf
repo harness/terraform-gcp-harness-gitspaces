@@ -113,7 +113,7 @@ resource "google_compute_subnetwork" "subnet" {
       target_tags   = local.gateway_vm_tags
       allow = [{
         protocol = "tcp"
-        ports = ["80", "443", "2117", "2200-65000"]
+        ports = ["80", "443", "2117", "2118", "2200-65000"]
       }]
     },
 

@@ -119,6 +119,10 @@ resource "google_compute_region_instance_group_manager" "gateway" {
     name = "gateway"
     port = 2117
   }
+    named_port {
+      name = "gateway-insecure"
+      port = 2118
+    }
 
   depends_on = [google_compute_region_instance_template.default_template]
 
