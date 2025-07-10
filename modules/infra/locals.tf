@@ -9,7 +9,7 @@ locals {
   domain = local.infra_config.domain
   dns_managed_zone = replace(local.domain, ".", "-")
   region_configs = local.infra_config.region_configs
-  vm_tags_gitspace = local.infra_config.gitspace_vm_tags
+  gitspace_vm_tags = local.infra_config.gitspace_vm_tags
 
   gateway_vm_tags = local.infra_config.gateway.vm_tags
   gateway_machine_type = local.infra_config.gateway.machine_type
@@ -19,6 +19,8 @@ locals {
   gateway_secret = local.infra_config.gateway.shared_secret
   gateway_version = local.infra_config.gateway.version
 
+  runner_vm_zone = local.infra_config.runner.zone
+  runner_vm_region = local.infra_config.runner.region
 
   provisioner_service_account = local.infra_config.project.service_account # Service account used to deploy gateway
   cde_manager_url = local.infra_config.gateway.cde_manager_url

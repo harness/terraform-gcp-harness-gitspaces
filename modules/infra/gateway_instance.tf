@@ -53,6 +53,7 @@ resource "google_compute_region_instance_template" "default_template" {
     CDE_GATEWAY_VERSION=${local.gateway_version}
     CDE_GATEWAY_REGION=${local.region_configs[each.key].region_name}
     CDE_GATEWAY_GROUP_NAME=${local.name}-${local.region_configs[each.key].region_name}-gateway-group-${local.gateway_suffix}
+    CDE_GATEWAY_INFRA_PROVIDER_TYPE=hybrid_vm_gcp
     EOF
     # Configure clients
     cat << YAML > /etc/gateway/config/cdeclients.yaml
