@@ -1,5 +1,5 @@
 resource "google_compute_instance" "runner_instance" {
-  for_each     = var.create_runner_vm ? local.runner_vm_region : {}
+  for_each     = var.create_runner_vm ? local.runner_vm_zone : {}
   name         = "${local.name}-${each.value.region_name}-runner-${local.gateway_suffix}"
   machine_type = local.gateway_machine_type
   zone         = each.value.zone

@@ -12,7 +12,7 @@ module "infra" {
   private_key_path = var.private_key_path
   certificate_path = var.certificate_path
   create_runner_vm = var.create_runner_vm
-  runner_vm_region = local.runner_vm_region
+  runner_vm_zone = local.runner_vm_zone
   depends_on = [module.domain]
 }
 

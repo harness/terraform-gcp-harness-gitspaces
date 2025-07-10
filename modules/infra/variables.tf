@@ -32,9 +32,9 @@ variable "manage_dns_zone" {
     default     = true
 }
 
-variable "runner_vm_region" {
-  description = "Regions for the runner VM."
-  type        = list(string)
+variable "runner_vm_zone" {
+  description = "Zone for the runner VM."
+  type        = string
 }
 
 variable "create_runner_vm" {
