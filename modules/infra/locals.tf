@@ -19,7 +19,8 @@ locals {
   gateway_secret = local.infra_config.gateway.shared_secret
   gateway_version = local.infra_config.gateway.version
 
-  runner_vm_zone = local.infra_config.runner_vm_zone
+  runner_vm_zone = local.infra_config.runner.zone
+  runner_vm_region = local.infra_config.runner.region
 
   provisioner_service_account = local.infra_config.project.service_account # Service account used to deploy gateway
   cde_manager_url = local.infra_config.gateway.cde_manager_url
