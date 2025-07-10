@@ -18,7 +18,7 @@ resource "google_compute_instance" "runner_instance" {
     subnetwork = google_compute_subnetwork.subnet[local.runner_vm_region].self_link
   }
 
-  tags = ["vm-runner"]
+  tags = ["runner-vm"]
 
   lifecycle {
     create_before_destroy = true
