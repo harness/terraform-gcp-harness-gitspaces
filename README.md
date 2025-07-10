@@ -22,14 +22,15 @@ Gateway:
 ## Terraform Variables
 ### Terraform Inputs
 
-| Variable Name                  | Type    | Description                                                                                          | Required | Default / Validation                                                      |
-|-------------------------------|---------|------------------------------------------------------------------------------------------------------|----------|----------------------------------------------------------------------------|
-| `service_account_key_file`    | string  | The path to the service account key file.                                                            | Yes      | —                                                                          |
-| `infra_config_yaml_file`      | string  | The path to the YAML file containing infrastructure configuration.                                   | Yes      | —                                                                          |
-| `manage_dns_zone`             | bool    | Whether the DNS zone should be managed by the module.                                                | Yes      | —                                                                          |
-| `use_gcp_certificate_manager` | bool    | Use Google Certificate Manager for SSL certificates.                                                 | No       | `true`                                                                     |
-| `private_key_path`            | string  | Path to the private key file for SSL certificate. Required if not using Certificate Manager.         | No       | `""`                                                                       |
-| `certificate_path`            | string  | Path to the SSL certificate file. Required if not using Certificate Manager.                         | No       | `""`                                                                       |
+| Variable Name                  | Type    | Description                                                                                         | Required | Default / Validation                                                      |
+|-------------------------------|---------|-----------------------------------------------------------------------------------------------------|----------|----------------------------------------------------------------------------|
+| `service_account_key_file`    | string  | The path to the service account key file.                                                           | Yes      | —                                                                          |
+| `infra_config_yaml_file`      | string  | The path to the YAML file containing infrastructure configuration.                                  | Yes      | —                                                                          |
+| `manage_dns_zone`             | bool    | Whether the DNS zone should be managed by the module.                                               | Yes      | —                                                                          |
+| `use_gcp_certificate_manager` | bool    | Use Google Certificate Manager for SSL certificates.                                                | No       | `true`                                                                     |
+| `private_key_path`            | string  | Path to the private key file for SSL certificate. Required if not using Certificate Manager.        | No       | `""`                                                                       |
+| `certificate_path`            | string  | Path to the SSL certificate file. Required if not using Certificate Manager.                        | No       | `""`                                                                       |
+| `create_runner_vm`            | bool    | Whether to create Gitspace runner VM as part of infrastructure provisioning.                        | No       | `false`                                                                    |
 
 ## Terraform Outputs
 
@@ -43,6 +44,7 @@ Gateway:
 | `sub_networks`       | List of subnetwork objects                | `module.infra.sub_networks`              | Contains subnet ID, region, etc.       |
 
 
+
 ### Example:
 ```hcl
 module "harness_gitspacs_gcp" {
@@ -50,7 +52,8 @@ module "harness_gitspacs_gcp" {
   service_account_key_file    = "service-account-key.json"
   manage_dns_zone             = true
   use_gcp_certificate_manager = true
-  certificate_path            = "sample_domain.cert"
-  private_key_path            = "sample_domain.key"
+  certificate_path            = "sample_domain.cert" # Optional if using GCP Certificate Manager
+  private_key_path            = "sample_domain.key" # Optional if using GCP Certificate Manager
+  create_runner_vm            = true
 }
 ```
