@@ -9,7 +9,7 @@ locals {
   domain = local.infra_config.domain
   dns_managed_zone = replace(local.domain, ".", "-")
   region_configs = local.infra_config.region_configs
-  vm_tags_gitspace = local.infra_config.gitspace_vm_tags
+  gitspace_vm_tags = local.infra_config.gitspace_vm_tags
 
   gateway_vm_tags = local.infra_config.gateway.vm_tags
   gateway_machine_type = local.infra_config.gateway.machine_type

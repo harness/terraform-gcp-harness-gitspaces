@@ -65,7 +65,7 @@ resource "google_compute_subnetwork" "subnet" {
       direction     = "INGRESS"
       priority      = 1000
       source_ranges = ["0.0.0.0/0"]
-      target_tags   = local.vm_tags_gitspace
+      target_tags   = local.gitspace_vm_tags
       deny = [{
         protocol = "all"
       }]
@@ -78,7 +78,7 @@ resource "google_compute_subnetwork" "subnet" {
 
       source_ranges = ["10.0.0.0/8"]
       source_tags = local.gateway_vm_tags
-      target_tags = local.vm_tags_gitspace
+      target_tags = local.gitspace_vm_tags
 
       allow = [{
         protocol = "tcp"
@@ -92,7 +92,7 @@ resource "google_compute_subnetwork" "subnet" {
       priority      = 800
 
       source_ranges = ["35.235.240.0/20"]
-      target_tags = concat(local.gateway_vm_tags, local.vm_tags_gitspace, ["runner-vm"])
+      target_tags = concat(local.gateway_vm_tags, local.gitspace_vm_tags, ["runner-vm"])
 
       allow = [{
         protocol = "tcp"
