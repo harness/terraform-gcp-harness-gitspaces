@@ -6,7 +6,7 @@ resource "google_compute_instance" "runner_instance" {
 
   boot_disk {
     initialize_params {
-      image = data.google_compute_image.latest_image.self_link
+      image = local.runner_vm_image_name
       size  = 30
       type  = "pd-standard"
     }
