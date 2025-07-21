@@ -2,10 +2,7 @@ locals {
   # Generate the unique suffix for the template name
   gateway_suffix = "${replace(local.gateway_version, ".", "-")}-${substr(uuid(), 0, 8)}"
 }
-data "google_compute_image" "latest_image" {
-  family  = local.gateway_vm_image_family
-  project = local.gateway_vm_image_project
-}
+
 # Create an instance template
 resource "google_compute_region_instance_template" "default_template" {
   for_each        = local.region_configs
@@ -14,7 +11,7 @@ resource "google_compute_region_instance_template" "default_template" {
   region       = local.region_configs[each.key].region_name
 
   disk {
-    source_image = data.google_compute_image.latest_image.self_link
+    source_image = local.gateway_vm_image_name
     auto_delete  = true
     boot         = true
     disk_size_gb = 50
