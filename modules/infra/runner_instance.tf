@@ -15,7 +15,7 @@ resource "google_compute_instance" "runner_instance" {
 
   network_interface {
     network    = google_compute_network.vpc_network.self_link
-    subnetwork = google_compute_subnetwork.subnet["uswest1"].self_link
+    subnetwork = google_compute_subnetwork.subnet[local.runner_vm_region].self_link
   }
 
   tags = ["runner-vm"]
