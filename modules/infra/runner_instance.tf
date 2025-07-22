@@ -1,6 +1,6 @@
 resource "google_compute_instance" "runner_instance" {
   count        = var.create_runner_vm ? 1 : 0
-  name         = "${local.name}-${local.runner_vm_region}-runner-${local.gateway_suffix}"
+  name         = "${local.name}-${local.runner_vm_region}-runner-vm"
   machine_type = local.gateway_machine_type
   zone         = local.runner_vm_zone
 
