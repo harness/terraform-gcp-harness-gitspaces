@@ -20,7 +20,7 @@ locals {
 
   runner_vm_zone = local.infra_config.runner.zone
   runner_vm_region = local.infra_config.runner.region
-  runner_vm_image_name = local.infra_config.vm_image_name
+  runner_vm_image_name = local.infra_config.runner.vm_image_name
 
   provisioner_service_account = local.infra_config.project.service_account # Service account used to deploy gateway
   cde_manager_url = local.infra_config.gateway.cde_manager_url

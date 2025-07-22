@@ -4,7 +4,7 @@ locals {
   name = local.infra_config.name
   infra_config = yamldecode(file(var.infra_config_yaml_file))
   domain = local.infra_config.domain
-  runner_image = local.infra_config.runner.vm_image
+  runner_image = local.infra_config.runner.vm_image_name
   vm_tags = local.infra_config.gitspace_vm_tags
   runner_vm_zone = local.infra_config.runner.zone
 }
