@@ -1,6 +1,6 @@
 resource "google_compute_instance" "runner_instance" {
   count        = var.create_runner_vm ? 1 : 0
-  name         = "${local.name}-${local.runner_vm_region}-runner-${local.gateway_suffix}"
+  name         = "${local.name}-${local.runner_vm_region}-runner-vm"
   machine_type = local.gateway_machine_type
   zone         = local.runner_vm_zone
 
@@ -15,7 +15,7 @@ resource "google_compute_instance" "runner_instance" {
 
   network_interface {
     network    = google_compute_network.vpc_network.self_link
-    subnetwork = google_compute_subnetwork.subnet[local.runner_vm_region].self_link
+    subnetwork = google_compute_subnetwork.subnet["uswest1"].self_link
   }
 
   tags = ["runner-vm"]
