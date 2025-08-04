@@ -1,9 +1,9 @@
 # Verify end to end
 resource "google_certificate_manager_dns_authorization" "default" {
-  for_each = var.use_gcp_certificate_manager ? local.region_configs : {}
-  name     = "${local.name}-${each.value.region_name}-default-wildcard-dns-auth"
-  domain   = each.value.certificates.contents[0].domain
-  location = each.value.region_name
+  for_each   = var.use_gcp_certificate_manager ? local.region_configs : {}
+  name       = "${local.name}-${each.value.region_name}-default-wildcard-dns-auth"
+  domain     = each.value.certificates.contents[0].domain
+  location   = each.value.region_name
   depends_on = [google_dns_managed_zone.default]
 }
 
@@ -15,7 +15,7 @@ resource "google_dns_record_set" "default-challenge" {
 
   managed_zone = local.dns_managed_zone
 
-  rrdatas = [google_certificate_manager_dns_authorization.default[each.key].dns_resource_record[0].data]
+  rrdatas    = [google_certificate_manager_dns_authorization.default[each.key].dns_resource_record[0].data]
   depends_on = [google_dns_managed_zone.default]
 }
 

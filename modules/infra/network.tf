@@ -11,7 +11,7 @@ resource "google_compute_subnetwork" "subnet" {
   network       = google_compute_network.vpc_network.id
 }
 
-  module "firewall_rules" {
+module "firewall_rules" {
   source       = "terraform-google-modules/network/google//modules/firewall-rules"
   project_id   = local.project_id
   network_name = google_compute_network.vpc_network.self_link
@@ -71,28 +71,28 @@ resource "google_compute_subnetwork" "subnet" {
       }]
     },
     {
-      name          = "${local.network_name}-allow-ingress-gitspace"
-      description   = "Allow all ingress traffic to gitspace from gateway"
-      direction     = "INGRESS"
-      priority      = 900
+      name        = "${local.network_name}-allow-ingress-gitspace"
+      description = "Allow all ingress traffic to gitspace from gateway"
+      direction   = "INGRESS"
+      priority    = 900
 
       source_ranges = ["10.0.0.0/8"]
-      source_tags = local.gateway_vm_tags
-      target_tags = local.gitspace_vm_tags
+      source_tags   = local.gateway_vm_tags
+      target_tags   = local.gitspace_vm_tags
 
       allow = [{
         protocol = "tcp"
-        ports = ["0-65535"]
+        ports    = ["0-65535"]
       }]
     },
     {
-      name          = "${local.network_name}-allow-gateway-ssh"
-      description   = "Allow ssh to gateway"
-      direction     = "INGRESS"
-      priority      = 800
+      name        = "${local.network_name}-allow-gateway-ssh"
+      description = "Allow ssh to gateway"
+      direction   = "INGRESS"
+      priority    = 800
 
       source_ranges = ["35.235.240.0/20"]
-      target_tags = concat(local.gateway_vm_tags, local.gitspace_vm_tags, ["runner-vm"])
+      target_tags   = concat(local.gateway_vm_tags, local.gitspace_vm_tags, ["runner-vm"])
 
       allow = [{
         protocol = "tcp"
@@ -100,20 +100,20 @@ resource "google_compute_subnetwork" "subnet" {
       }]
     },
     {
-      name          = "${local.network_name}-allow-all-ingress-gateway"
-      description   = "Allow all ingress traffic to gateway"
-      direction     = "INGRESS"
-      priority      = 600
+      name        = "${local.network_name}-allow-all-ingress-gateway"
+      description = "Allow all ingress traffic to gateway"
+      direction   = "INGRESS"
+      priority    = 600
       source_ranges = concat(
-    local.vm_ip_ranges,
-    [for ip in google_compute_address.nat_static_ip : ip.address],
-    [for ip in google_compute_address.alb_ip : ip.address],
-    [for ip in google_compute_address.nlb_ip : ip.address]
+        local.vm_ip_ranges,
+        [for ip in google_compute_address.nat_static_ip : ip.address],
+        [for ip in google_compute_address.alb_ip : ip.address],
+        [for ip in google_compute_address.nlb_ip : ip.address]
       )
-      target_tags   = local.gateway_vm_tags
+      target_tags = local.gateway_vm_tags
       allow = [{
         protocol = "tcp"
-        ports = ["80", "443", "2117", "2118", "2200-65000"]
+        ports    = ["80", "443", "2117", "2118", "2200-65000"]
       }]
     },
 
@@ -124,8 +124,8 @@ resource "google_compute_subnetwork" "subnet" {
 resource "google_compute_address" "nat_static_ip" {
   for_each = local.region_configs
 
-  name   = "${local.name}-${each.value.region_name}-nat-static-ip"
-  region = each.value.region_name
+  name    = "${local.name}-${each.value.region_name}-nat-static-ip"
+  region  = each.value.region_name
   project = local.project_id
 }
 

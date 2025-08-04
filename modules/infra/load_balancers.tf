@@ -75,16 +75,16 @@ resource "google_compute_forwarding_rule" "alb_default" {
 }
 
 resource "google_compute_region_target_https_proxy" "default" {
-  for_each                         = local.region_configs
-  name                             = "${local.name}-${each.value.region_name}-https-proxy"
-  url_map                          = google_compute_region_url_map.default[each.key].id
-  region                           = each.value.region_name
+  for_each = local.region_configs
+  name     = "${local.name}-${each.value.region_name}-https-proxy"
+  url_map  = google_compute_region_url_map.default[each.key].id
+  region   = each.value.region_name
 
   certificate_manager_certificates = var.use_gcp_certificate_manager ? [
-    "//certificatemanager.googleapis.com/projects/${local.project_id}/locations/${each.value.region_name}/certificates/${local.name}-${each.value.region_name}-dns-cert"] : null
+  "//certificatemanager.googleapis.com/projects/${local.project_id}/locations/${each.value.region_name}/certificates/${local.name}-${each.value.region_name}-dns-cert"] : null
 
   ssl_certificates = var.use_gcp_certificate_manager ? null : [
-    google_compute_region_ssl_certificate.default[each.key].id ]
+  google_compute_region_ssl_certificate.default[each.key].id]
 }
 
 resource "google_compute_region_ssl_certificate" "default" {
@@ -117,7 +117,7 @@ resource "google_compute_region_backend_service" "alb_default" {
       balancing_mode        = "RATE"
       max_rate_per_instance = 100
       capacity_scaler       = 1.0
-      group          = backend.value
+      group                 = backend.value
     }
   }
   health_checks = [google_compute_region_health_check.alb_default[each.key].id]
