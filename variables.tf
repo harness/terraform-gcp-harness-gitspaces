@@ -15,22 +15,22 @@ variable "manage_dns_zone" {
 variable "use_gcp_certificate_manager" {
   description = "Use Google Certificate Manager for SSL certificates."
   type        = bool
-  default = true
+  default     = true
 }
 
 variable "private_key_path" {
   description = "Path to the private key file for SSL certificate."
   type        = string
-  default = ""
+  default     = ""
 }
 
 variable "certificate_path" {
   description = "Path to the SSL certificate file."
   type        = string
-  default = ""
+  default     = ""
 }
 
 variable "create_runner_vm" {
-    description = "Create a VM for the runner."
-    type        = bool
+  description = "Create a VM for the runner."
+  type        = bool
 }

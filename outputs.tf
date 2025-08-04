@@ -15,12 +15,12 @@ output "managed_domain_zone" {
 
 output "alb_ips" {
   description = "The external IPs for the ALB"
-  value =  module.infra.alb_ips
+  value       = module.infra.alb_ips
 }
 
 output "nlb_ips" {
   description = "The external IPs for the NLB"
-  value = module.infra.nlb_ips
+  value       = module.infra.nlb_ips
 }
 
 locals {
@@ -30,25 +30,25 @@ locals {
     instances = flatten([
       for subnet in module.infra.sub_networks : [
         {
-          name     = "${local.name}-${subnet.region}"
-          type     = "google"
-          pool     = 0
-          limit    = 1000
+          name  = "${local.name}-${subnet.region}"
+          type  = "google"
+          pool  = 0
+          limit = 1000
           platform = {
             os   = "linux"
             arch = "amd64"
           }
           spec = {
-            tags     = local.vm_tags
+            tags = local.vm_tags
             account = {
-              project_id = local.project_id
+              project_id         = local.project_id
               no_service_account = true
-              json_path  = var.service_account_key_file
+              json_path          = var.service_account_key_file
             }
-            image        = local.runner_image
-            subnetwork      = subnet.id       # Use the subnet ID here
-            network         = module.infra.vpc_network_id
-            private_ip: true
+            image      = local.runner_image
+            subnetwork = subnet.id # Use the subnet ID here
+            network    = module.infra.vpc_network_id
+            private_ip : true
             disk = {
               size = 100
               type = "pd-balanced"
@@ -62,12 +62,12 @@ locals {
 
 # Output the generated YAML structure
 output "instance_yaml" {
-  value = yamlencode(local.instance_yaml_content)
+  value     = yamlencode(local.instance_yaml_content)
   sensitive = false
 }
 
 output "sub_networks" {
-  value =  module.infra.sub_networks
+  value = module.infra.sub_networks
 }
 
 # Write the YAML structure to a file using the local-exec provisioner

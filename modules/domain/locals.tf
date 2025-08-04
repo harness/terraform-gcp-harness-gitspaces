@@ -1,8 +1,8 @@
 locals {
-  project_id = var.project_id
-  infra_config = yamldecode(file(var.infra_config_yaml_file))
-  name       = local.infra_config.name
-  domain = local.infra_config.domain
+  project_id       = var.project_id
+  infra_config     = yamldecode(file(var.infra_config_yaml_file))
+  name             = local.infra_config.name
+  domain           = local.infra_config.domain
   dns_managed_zone = replace(local.domain, ".", "-")
-  region_configs = local.infra_config.region_configs
+  region_configs   = local.infra_config.region_configs
 }

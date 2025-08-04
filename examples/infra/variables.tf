@@ -17,13 +17,13 @@ variable "use_gcp_certificate_manager" {
 variable "private_key_path" {
   description = "Path to the private key file for SSL certificate."
   type        = string
-  default = ""
+  default     = ""
 }
 
 variable "certificate_path" {
   description = "Path to the SSL certificate file."
   type        = string
-  default = ""
+  default     = ""
 }
 
 variable "manage_dns_zone" {

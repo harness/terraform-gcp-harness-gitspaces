@@ -1,11 +1,19 @@
 locals {
   # Generate the unique suffix for the template name
   gateway_suffix = "${replace(local.gateway_version, ".", "-")}-${substr(uuid(), 0, 8)}"
+  redis_endpoints = {
+    for key, cfg in local.region_configs :
+    key => (
+      local.enable_high_availability && contains(keys(google_redis_instance.redis), key)
+      ? "${google_redis_instance.redis[key].host}:6379"
+      : "localhost:6379"
+    )
+  }
 }
 
 # Create an instance template
 resource "google_compute_region_instance_template" "default_template" {
-  for_each        = local.region_configs
+  for_each     = local.region_configs
   name         = "${local.name}-${local.region_configs[each.key].region_name}-gateway-template-${local.gateway_suffix}"
   machine_type = local.gateway_machine_type
   region       = local.region_configs[each.key].region_name
@@ -51,6 +59,9 @@ resource "google_compute_region_instance_template" "default_template" {
     CDE_GATEWAY_REGION=${local.region_configs[each.key].region_name}
     CDE_GATEWAY_GROUP_NAME=${local.name}-${local.region_configs[each.key].region_name}-gateway-group-${local.gateway_suffix}
     CDE_GATEWAY_INFRA_PROVIDER_TYPE=hybrid_vm_gcp
+    CDE_GATEWAY_REDIS_ENDPOINT=${local.redis_endpoints[each.key]}
+    CDE_GATEWAY_EVENTS_MODE = ${local.events_mode}
+    CDE_GATEWAY_ENABLE_HIGH_AVAILABILITY   = ${local.enable_high_availability}
     EOF
     # Configure clients
     cat << YAML > /etc/gateway/config/cdeclients.yaml
@@ -117,10 +128,10 @@ resource "google_compute_region_instance_group_manager" "gateway" {
     name = "gateway"
     port = 2117
   }
-    named_port {
-      name = "gateway-insecure"
-      port = 2118
-    }
+  named_port {
+    name = "gateway-insecure"
+    port = 2118
+  }
 
   depends_on = [google_compute_region_instance_template.default_template]
 
