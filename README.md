@@ -11,6 +11,7 @@ You must have a GCP project with the following APIs enabled:
 - **Certificate Manager API** – `api/certificatemanager.googleapis.com`
 - **Identity and Access Management (IAM) API** – `api/iam.googleapis.com`
 - **Cloud DNS API** – `api/dns.googleapis.com`
+- **Google Cloud Memorystore for Redis API** - `api/redis.googleapis.com`
 
 
 Gateway:
