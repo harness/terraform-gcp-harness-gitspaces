@@ -21,6 +21,6 @@ resource "google_compute_instance" "runner_instance" {
   tags = ["runner-vm"]
 
   lifecycle {
-    create_before_destroy = true
+    create_before_destroy = false
   }
 }
